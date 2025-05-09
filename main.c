@@ -4,27 +4,27 @@
 #define vgasz (vgaw * vgah * 2)
 
 void clearScr(char *vidptr);
+void printString(char *vidptr, const char *str, unsigned int *i);
 
 //function called in bootloader
 void kmain(void)
 {
-	const char *str = "hello,world"; //string will be printed
 	char *vidptr = vidPtr;
-	unsigned int i = 0;	 
-	unsigned int j = 0;	
+	unsigned int i=0;
 
 	clearScr(vidptr);
-
-	j = 0;	//reset j for string
-	//in this loop we write a string to the video memory
-	while(str[j] != '\0') {//continue until null terminate
-		//printing our string (str) to screen
-		vidptr[i] = str[j];	//write character from string to video mem
-		vidptr[i+1] = 0x0a;	//set attribute byte 
-		++j;	//move to next character in str
-		i = i+2;	//move to next pos in video mem
-	}
+	printString(vidptr,"hello,world",&i);
 	return;	//exit the function
+}
+
+void printString(char *vidptr, const char *str, unsigned int *i){
+	unsigned int j = 0;
+	while(str[j] != '\0' && *i < vgasz){
+		vidptr[*i] = str[j];
+		vidptr[*i + 1] = 0x0a;
+		++j;
+		*i += 2;
+	}
 }
 
 void clearScr(char *vidptr){
