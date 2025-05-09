@@ -12,18 +12,18 @@ void kmain(void)
 	char *vidptr = vidPtr;
 	unsigned int i=0;
 
-	clearScr(vidptr);
-	printString(vidptr,"hello,world",&i);
+	clearScr(vidptr);	//clearing screen
+	printString(vidptr,"hello,world",&i);	//printing 'hello,world' to screen
 	return;	//exit the function
 }
 
 void printString(char *vidptr, const char *str, unsigned int *i){
 	unsigned int j = 0;
-	while(str[j] != '\0' && *i < vgasz){
-		vidptr[*i] = str[j];
-		vidptr[*i + 1] = 0x0a;
-		++j;
-		*i += 2;
+	while(str[j] != '\0' && *i < vgasz){//putting text to video mem until string end
+		vidptr[*i] = str[j];	//writing current char to video mem
+		vidptr[*i + 1] = 0x0a;	//set attribute byte
+		++j;	//incrementing string index to move next character
+		*i += 2;	//incrementing video mem index by 2
 	}
 }
 
