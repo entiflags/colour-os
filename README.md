@@ -5,9 +5,15 @@ Operating system written in C for study (my first osdev proj)
 - tools needed to compile: nasm, gcc, qemu
 - sudo apt install nasm gcc qemu-all (ubuntu, mint)
 - sudo pacman -S nasm, gcc, qemu-all (arch, arch based)
-  BUILDING
+  # BUILDING
 - nasm -f elf32 kernel.asm -o kasm.o
 - gcc -m32 -c main.c -o main.o
 - ld -m elf_i386 -T linker.ld -o kernel kasm.o main.o
-  RUNNING
+  # RUNNING
 - qemu-system-i386 -kernel kernel
+
+# TODO
+- [ ] Learn C
+- [ ] Implement printf
+- [ ] Learn OSDev
+- [ ] Add some stuff
