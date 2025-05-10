@@ -8,7 +8,7 @@
 #define vgasz (vgaw * vgah * 2)
 
 void clearScr(char *vidptr);
-void printString(char *vidptr, const char *str, unsigned int *i);
+void printString(const char *str);
 
 enum vgacols{
 	black=0,
@@ -73,11 +73,18 @@ void termPutEntryAt(char c,uint8_t color,size_t x,size_t y){
 }
 
 void termPutC(char c){
-	termPutEntryAt(c,terminal_color,terminal_column,terminal_row);
-	if(++terminal_column == vgaw){
+	if(c=='\n'){
 		terminal_column = 0;
-		if(++terminal_row == vgah)
-			terminal_row = 0;
+		if(++terminal_row==vgah){
+			terminal_row=0;
+		}
+	} else {
+		termPutEntryAt(c,terminal_color,terminal_column,terminal_row);
+		if(++terminal_column == vgaw){
+			terminal_column = 0;
+			if(++terminal_row == vgah)
+				terminal_row = 0;
+		}
 	}	
 }
 
@@ -94,12 +101,11 @@ void kmain(void)
 	termInit();
 
 	clearScr(vidptr);	//clearing screen
-	printString(vidptr,"kakashka\n",&i);	//printing 'kakashka' to screen
+	printString("kakashka\n");	//printing 'kakashka' to screen
+	printString("test\n");	//printing test message to screen
 }
 
-void printString(char *vidptr, const char *str, unsigned int *i){
-	(void)vidptr;
-	(void)i;
+void printString(const char *str){
 	termWrite(str, strlen(str));
 }
 
